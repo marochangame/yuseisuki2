@@ -1,14 +1,14 @@
-ユーセー君はどっちが好き？ v19 big UI
+yuseisuki2 見た目強化版（安全差し替え）
 
-変更内容：
-- 設計画面どおり、キャラクターを大きく表示
-- 選択肢カードを画面いっぱいに拡大
-- 上エリア約30%、下エリア約70%のバランスへ調整
-- 余白を削減
-- 効果音は未変更
-- 既存の音声・問題内容・ランダムキャラは維持
+中身：
+- index.html
+- visual-upgrade.css
 
-GitHubには、このZIPを解凍して中身を全部上書きアップロードしてください。
+重要：
+- style.css は触りません
+- script.js は触りません
+- 画像ファイルは触りません
+- yuseisuki3 は触りません
 
-確認URL：
-https://marochangame.github.io/yuseisuki/?v=19
+GitHubでは、このZIPを解凍して出てきた2ファイルだけを
+yuseisuki2 にアップロードしてください。
