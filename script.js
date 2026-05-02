@@ -11,21 +11,25 @@ const reactionText = document.getElementById("reactionText");
 const heroFox = document.getElementById("heroFox");
 
 const questions = [
-  { left: "👟", leftName: "くつ", right: "🧢", rightName: "ぼうし", answer: "left" },
-  { left: "🚗", leftName: "くるま", right: "🦕", rightName: "きょうりゅう", answer: "right" },
-  { left: "🍎", leftName: "りんご", right: "🍌", rightName: "バナナ", answer: "right" },
-  { left: "🐶", leftName: "いぬ", right: "🐱", rightName: "ねこ", answer: "left" },
-  { left: "⚽️", leftName: "ボール", right: "🚃", rightName: "でんしゃ", answer: "right" },
-  { left: "🍙", leftName: "おにぎり", right: "🍓", rightName: "いちご", answer: "left" },
-  { left: "🚌", leftName: "バス", right: "🚲", rightName: "じてんしゃ", answer: "left" },
-  { left: "🧸", leftName: "ぬいぐるみ", right: "🎈", rightName: "ふうせん", answer: "right" },
-  { left: "🍩", leftName: "ドーナツ", right: "🥛", rightName: "ぎゅうにゅう", answer: "left" },
-  { left: "🐘", leftName: "ぞう", right: "🦒", rightName: "きりん", answer: "right" }
+  { left: "", leftName: "くつ", right: "", rightName: "ぼうし", answer: "both" },
+  { left: "", leftName: "くるま", right: "", rightName: "きょうりゅう", answer: "both" },
+  { left: "", leftName: "りんご", right: "", rightName: "バナナ", answer: "both" },
+  { left: "", leftName: "いぬ", right: "", rightName: "ねこ", answer: "both" },
+  { left: "⚽️", leftName: "ボール", right: "", rightName: "でんしゃ", answer: "both" },
+  { left: "", leftName: "おにぎり", right: "", rightName: "いちご", answer: "both" },
+  { left: "", leftName: "バス", right: "", rightName: "じてんしゃ", answer: "both" },
+  { left: "", leftName: "ぬいぐるみ", right: "", rightName: "ふうせん", answer: "both" },
+  { left: "", leftName: "ドーナツ", right: "", rightName: "ぎゅうにゅう", answer: "both" },
+  { left: "", leftName: "ぞう", right: "", rightName: "きりん", answer: "both" }
 ];
 
-const okMessages = ["やった！", "いいね！", "すごい！", "ぴんぽん！"];
+const okMessages = ["いいね！", "いいねぇ！", "すきすき！", "やった！"];
+const MAX_QUESTIONS = 10;
+
 let index = 0;
+let answeredCount = 0;
 let audioCtx = null;
+let acceptingAnswer = true;
 
 function unlockAudio() {
   try {
@@ -80,10 +84,14 @@ function loadQuestion() {
   rightItem.textContent = q.right;
   leftChoice.setAttribute("aria-label", q.leftName);
   rightChoice.setAttribute("aria-label", q.rightName);
+  acceptingAnswer = true;
 }
 
 function showReaction(ok) {
-  reactionText.textContent = ok ? okMessages[Math.floor(Math.random() * okMessages.length)] : "あれ？";
+  reactionText.textContent = ok
+    ? okMessages[Math.floor(Math.random() * okMessages.length)]
+    : "あれ？";
+
   reaction.classList.remove("show");
   void reaction.offsetWidth;
   reaction.classList.add("show");
@@ -97,26 +105,61 @@ function showReaction(ok) {
   setTimeout(() => reaction.classList.remove("show"), ok ? 760 : 520);
 }
 
+function finishGame() {
+  acceptingAnswer = false;
+  reactionText.textContent = "おしまい！";
+  reaction.classList.remove("show");
+  void reaction.offsetWidth;
+  reaction.classList.add("show");
+
+  heroFox.classList.remove("happy");
+  void heroFox.offsetWidth;
+  heroFox.classList.add("happy");
+
+  speak("おしまい。いいねぇ！");
+  tone(true);
+
+  setTimeout(() => {
+    reaction.classList.remove("show");
+    gameScreen.classList.remove("show");
+    gameScreen.setAttribute("aria-hidden", "true");
+    startScreen.classList.remove("hide");
+    index = 0;
+    answeredCount = 0;
+    loadQuestion();
+  }, 1400);
+}
+
 function answer(side, button) {
+  if (!acceptingAnswer) return;
+  acceptingAnswer = false;
+
   button.classList.add("pressed");
   setTimeout(() => button.classList.remove("pressed"), 130);
 
-  const ok = questions[index].answer === side;
+  const ok = true;
+  answeredCount += 1;
+
   tone(ok);
-  speak(ok ? "いいね" : "あれ");
+  speak("いいねぇ");
   showReaction(ok);
 
-  if (ok) {
-    setTimeout(() => {
-      index = (index + 1) % questions.length;
-      loadQuestion();
-      setTimeout(speakQuestion, 180);
-    }, 780);
-  }
+  setTimeout(() => {
+    if (answeredCount >= MAX_QUESTIONS) {
+      finishGame();
+      return;
+    }
+
+    index = (index + 1) % questions.length;
+    loadQuestion();
+    setTimeout(speakQuestion, 180);
+  }, 780);
 }
 
 startBtn.addEventListener("click", () => {
   unlockAudio();
+  index = 0;
+  answeredCount = 0;
   startScreen.classList.add("hide");
   gameScreen.classList.add("show");
   gameScreen.removeAttribute("aria-hidden");
