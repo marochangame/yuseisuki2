@@ -1,11 +1,10 @@
 {
-  "name": "ユーセー君はどっちが好き？",
-  "short_name": "ユーセー君",
+  "name": "ユーセーくん",
+  "short_name": "ユーセー",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fff3aa",
   "theme_color": "#fff3aa",
-  "orientation": "any",
   "icons": [
     {
       "src": "icon-192.png",
