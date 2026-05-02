@@ -1,4 +1,4 @@
-const CACHE_NAME = "yuseisuki-v20-10q-iine";
+const CACHE_NAME = "yuseisuki-v21-both-ok-10q";
 const ASSETS = [
   "./",
   "./index.html",
@@ -16,21 +16,16 @@ const ASSETS = [
   "./char_7.png",
   "./char_8.png"
 ];
-
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
   self.skipWaiting();
 });
-
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
-    )
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
   );
   self.clients.claim();
 });
-
 self.addEventListener("fetch", event => {
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
 });
