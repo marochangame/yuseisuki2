@@ -1,36 +1,48 @@
+// 完全版：動作＋音声OK
 const startBtn = document.getElementById("startBtn");
-const soundBtn = document.getElementById("soundBtn");
+const gameScreen = document.getElementById("gameScreen");
+const startScreen = document.getElementById("startScreen");
+const left = document.getElementById("leftChoice");
+const right = document.getElementById("rightChoice");
 
-let audioUnlocked = false;
+const pairs = [
+  {l:"👟", r:"🧢", a:"l"},
+  {l:"🍎", r:"🍌", a:"r"},
+];
 
-function unlockAudio() {
-  if (audioUnlocked) return;
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    osc.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.01);
-    audioUnlocked = true;
-  } catch(e){}
+let i=0;
+
+function speak(t){
+ if(!('speechSynthesis'in window))return;
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(t);
+ u.lang="ja-JP";
+ u.pitch=1.3;
+ u.rate=0.9;
+ speechSynthesis.speak(u);
 }
 
-function speak(text) {
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "ja-JP";
-  u.rate = 0.9;
-  u.pitch = 1.3;
-  speechSynthesis.speak(u);
+function load(){
+ left.textContent=pairs[i].l;
+ right.textContent=pairs[i].r;
 }
 
-startBtn.addEventListener("click", () => {
-  unlockAudio();
-  speak("どっちかな");
-});
+startBtn.onclick=()=>{
+ startScreen.style.display="none";
+ gameScreen.style.display="block";
+ load();
+ speak("どっちかな");
+};
 
-soundBtn.addEventListener("click", () => {
-  unlockAudio();
-  speak("どっちかな");
-});
+left.onclick=()=>ans("l");
+right.onclick=()=>ans("r");
+
+function ans(s){
+ if(pairs[i].a===s){
+  speak("いいね");
+  i=(i+1)%pairs.length;
+  setTimeout(load,500);
+ }else{
+  speak("あれ");
+ }
+}
