@@ -11,16 +11,16 @@ const reactionText = document.getElementById("reactionText");
 const heroFox = document.getElementById("heroFox");
 
 const questions = [
-  { left: "👟", right: "🧢", answer: "left" },
-  { left: "🚗", right: "🦕", answer: "right" },
-  { left: "🍎", right: "🍌", answer: "right" },
-  { left: "🐶", right: "🐱", answer: "left" },
-  { left: "⚽️", right: "🚃", answer: "right" },
-  { left: "🍙", right: "🍓", answer: "left" },
-  { left: "🚌", right: "🚲", answer: "left" },
-  { left: "🧸", right: "🎈", answer: "right" },
-  { left: "🍩", right: "🥛", answer: "left" },
-  { left: "🐘", right: "🦒", answer: "right" }
+  { left: "👟", leftName: "くつ", right: "🧢", rightName: "ぼうし", answer: "left" },
+  { left: "🚗", leftName: "くるま", right: "🦕", rightName: "きょうりゅう", answer: "right" },
+  { left: "🍎", leftName: "りんご", right: "🍌", rightName: "バナナ", answer: "right" },
+  { left: "🐶", leftName: "いぬ", right: "🐱", rightName: "ねこ", answer: "left" },
+  { left: "⚽️", leftName: "ボール", right: "🚃", rightName: "でんしゃ", answer: "right" },
+  { left: "🍙", leftName: "おにぎり", right: "🍓", rightName: "いちご", answer: "left" },
+  { left: "🚌", leftName: "バス", right: "🚲", rightName: "じてんしゃ", answer: "left" },
+  { left: "🧸", leftName: "ぬいぐるみ", right: "🎈", rightName: "ふうせん", answer: "right" },
+  { left: "🍩", leftName: "ドーナツ", right: "🥛", rightName: "ぎゅうにゅう", answer: "left" },
+  { left: "🐘", leftName: "ぞう", right: "🦒", rightName: "きりん", answer: "right" }
 ];
 
 const okMessages = ["やった！", "いいね！", "すごい！", "ぴんぽん！"];
@@ -42,11 +42,16 @@ function speak(text) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = "ja-JP";
-    u.rate = 0.9;
+    u.rate = 0.88;
     u.pitch = 1.35;
     u.volume = 1;
     window.speechSynthesis.speak(u);
   } catch (e) {}
+}
+
+function speakQuestion() {
+  const q = questions[index];
+  speak(`ユーセーくんは、${q.leftName}と${q.rightName}、どっちがすき？`);
 }
 
 function tone(ok) {
@@ -73,6 +78,8 @@ function loadQuestion() {
   const q = questions[index];
   leftItem.textContent = q.left;
   rightItem.textContent = q.right;
+  leftChoice.setAttribute("aria-label", q.leftName);
+  rightChoice.setAttribute("aria-label", q.rightName);
 }
 
 function showReaction(ok) {
@@ -103,6 +110,7 @@ function answer(side, button) {
     setTimeout(() => {
       index = (index + 1) % questions.length;
       loadQuestion();
+      setTimeout(speakQuestion, 180);
     }, 780);
   }
 }
@@ -113,7 +121,7 @@ startBtn.addEventListener("click", () => {
   gameScreen.classList.add("show");
   gameScreen.removeAttribute("aria-hidden");
   loadQuestion();
-  setTimeout(() => speak("どっちかな"), 120);
+  setTimeout(speakQuestion, 160);
 });
 
 leftChoice.addEventListener("click", () => answer("left", leftChoice));
@@ -121,7 +129,7 @@ rightChoice.addEventListener("click", () => answer("right", rightChoice));
 
 soundBtn.addEventListener("click", () => {
   unlockAudio();
-  speak("どっちかな");
+  speakQuestion();
 });
 
 document.addEventListener("touchstart", unlockAudio, { once: true });
