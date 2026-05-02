@@ -11,16 +11,16 @@ const reactionText = document.getElementById("reactionText");
 const heroFox = document.getElementById("heroFox");
 
 const questions = [
-  { left: "", leftName: "くつ", right: "", rightName: "ぼうし", answer: "both" },
-  { left: "", leftName: "くるま", right: "", rightName: "きょうりゅう", answer: "both" },
-  { left: "", leftName: "りんご", right: "", rightName: "バナナ", answer: "both" },
-  { left: "", leftName: "いぬ", right: "", rightName: "ねこ", answer: "both" },
-  { left: "⚽️", leftName: "ボール", right: "", rightName: "でんしゃ", answer: "both" },
-  { left: "", leftName: "おにぎり", right: "", rightName: "いちご", answer: "both" },
-  { left: "", leftName: "バス", right: "", rightName: "じてんしゃ", answer: "both" },
-  { left: "", leftName: "ぬいぐるみ", right: "", rightName: "ふうせん", answer: "both" },
-  { left: "", leftName: "ドーナツ", right: "", rightName: "ぎゅうにゅう", answer: "both" },
-  { left: "", leftName: "ぞう", right: "", rightName: "きりん", answer: "both" }
+  { left: "", leftName: "くつ", right: "", rightName: "ぼうし", answer: "left" },
+  { left: "", leftName: "くるま", right: "", rightName: "きょうりゅう", answer: "right" },
+  { left: "", leftName: "りんご", right: "", rightName: "バナナ", answer: "right" },
+  { left: "", leftName: "いぬ", right: "", rightName: "ねこ", answer: "left" },
+  { left: "⚽️", leftName: "ボール", right: "", rightName: "でんしゃ", answer: "right" },
+  { left: "", leftName: "おにぎり", right: "", rightName: "いちご", answer: "left" },
+  { left: "", leftName: "バス", right: "", rightName: "じてんしゃ", answer: "left" },
+  { left: "", leftName: "ぬいぐるみ", right: "", rightName: "ふうせん", answer: "right" },
+  { left: "", leftName: "ドーナツ", right: "", rightName: "ぎゅうにゅう", answer: "left" },
+  { left: "", leftName: "ぞう", right: "", rightName: "きりん", answer: "right" }
 ];
 
 const okMessages = ["いいね！", "いいねぇ！", "すきすき！", "やった！"];
@@ -87,10 +87,8 @@ function loadQuestion() {
   acceptingAnswer = true;
 }
 
-function showReaction(ok) {
-  reactionText.textContent = ok
-    ? okMessages[Math.floor(Math.random() * okMessages.length)]
-    : "あれ？";
+function showReaction(ok, text) {
+  reactionText.textContent = text || (ok ? okMessages[Math.floor(Math.random() * okMessages.length)] : "あれ？");
 
   reaction.classList.remove("show");
   void reaction.offsetWidth;
@@ -107,17 +105,9 @@ function showReaction(ok) {
 
 function finishGame() {
   acceptingAnswer = false;
-  reactionText.textContent = "おしまい！";
-  reaction.classList.remove("show");
-  void reaction.offsetWidth;
-  reaction.classList.add("show");
-
-  heroFox.classList.remove("happy");
-  void heroFox.offsetWidth;
-  heroFox.classList.add("happy");
-
-  speak("おしまい。いいねぇ！");
   tone(true);
+  speak("おしまい。いいねぇ！");
+  showReaction(true, "おしまい！");
 
   setTimeout(() => {
     reaction.classList.remove("show");
@@ -141,7 +131,7 @@ function answer(side, button) {
   answeredCount += 1;
 
   tone(ok);
-  speak("いいねぇ");
+  speak("いいね");
   showReaction(ok);
 
   setTimeout(() => {
