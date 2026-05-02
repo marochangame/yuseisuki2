@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ユーセーくん</title>
-  <meta name="theme-color" content="#fff3aa" />
+  <meta name="theme-color" content="#fff4b7" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="ユーセーくん" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -17,44 +17,29 @@
   <main class="app">
     <section class="start-screen" id="startScreen">
       <div class="start-card">
-        <div class="big-fox start-fox" aria-hidden="true">
-          <div class="ear left"></div><div class="ear right"></div>
-          <div class="face">
-            <div class="eye left"></div><div class="eye right"></div>
-            <div class="cheek left"></div><div class="cheek right"></div>
-            <div class="nose"></div><div class="mouth"></div>
-          </div>
-          <div class="body"></div><div class="tail"></div>
+        <div class="fox start-fox" aria-hidden="true">
+          <div class="tail"></div><div class="ear ear-l"></div><div class="ear ear-r"></div>
+          <div class="body"></div><div class="face"><div class="eye eye-l"></div><div class="eye eye-r"></div><div class="cheek cheek-l"></div><div class="cheek cheek-r"></div><div class="nose"></div><div class="mouth"></div></div>
         </div>
         <button id="startBtn" class="start-btn" type="button">はじめる</button>
       </div>
     </section>
 
     <section class="game-screen" id="gameScreen" aria-hidden="true">
-      <section class="hero-area">
-        <div class="sparkle s1"></div>
-        <div class="sparkle s2"></div>
-        <div class="big-fox hero-fox" id="heroFox" aria-hidden="true">
-          <div class="ear left"></div><div class="ear right"></div>
-          <div class="face">
-            <div class="eye left"></div><div class="eye right"></div>
-            <div class="cheek left"></div><div class="cheek right"></div>
-            <div class="nose"></div><div class="mouth"></div>
-          </div>
-          <div class="body"></div><div class="tail"></div>
+      <div class="sparkle sp1"></div><div class="sparkle sp2"></div>
+      <section class="hero">
+        <div class="fox hero-fox" id="heroFox" aria-hidden="true">
+          <div class="tail"></div><div class="ear ear-l"></div><div class="ear ear-r"></div>
+          <div class="body"></div><div class="face"><div class="eye eye-l"></div><div class="eye eye-r"></div><div class="cheek cheek-l"></div><div class="cheek cheek-r"></div><div class="nose"></div><div class="mouth"></div></div>
         </div>
       </section>
 
       <section class="choices" aria-label="えらぶ">
-        <button class="choice" id="leftChoice" type="button" aria-label="">
-          <span class="item" id="leftItem"></span>
-        </button>
-        <button class="choice" id="rightChoice" type="button" aria-label="">
-          <span class="item" id="rightItem"></span>
-        </button>
+        <button class="choice" id="leftChoice" type="button" aria-label="ひだり"><span class="item" id="leftItem"></span></button>
+        <button class="choice" id="rightChoice" type="button" aria-label="みぎ"><span class="item" id="rightItem"></span></button>
       </section>
 
-      <button class="sound-btn" id="soundBtn" type="button" aria-label="もういちどきく">♪</button>
+      <button class="sound-btn" id="soundBtn" type="button" aria-label="もういちど">♪</button>
 
       <div class="reaction" id="reaction" aria-hidden="true">
         <div class="burst"></div>

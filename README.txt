@@ -1,6 +1,6 @@
-ユーセーくんアプリ：大きめキャラ・文字なし版
+yuseisuki2 完全差し替え版
 
-中身：
+アップロードするもの：
 - index.html
 - style.css
 - script.js
@@ -8,6 +8,9 @@
 - icon-192.png
 - icon-512.png
 
-反映方法：
-GitHub の yuseisuki2 に、このZIPを解凍して出てきた中身を全部アップロードしてください。
-※ yuseisuki3 は触らないでください。
+やること：
+GitHub の yuseisuki2 に、このフォルダの中身を全部アップロードして上書きしてください。
+ZIPファイルそのものはアップロードしません。
+
+触らないもの：
+- yuseisuki3

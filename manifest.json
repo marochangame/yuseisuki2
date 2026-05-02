@@ -3,8 +3,8 @@
   "short_name": "ユーセー",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff3aa",
-  "theme_color": "#fff3aa",
+  "background_color": "#fff4b7",
+  "theme_color": "#fff4b7",
   "icons": [
     {
       "src": "icon-192.png",
