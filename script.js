@@ -59,17 +59,31 @@ function unlockAudio() {
   } catch (e) {}
 }
 
-function speak(text) {
+function speak(text, onDone, fallbackMs = 1800) {
   try {
-    if (!("speechSynthesis" in window)) return;
+    if (!("speechSynthesis" in window)) {
+      if (typeof onDone === "function") setTimeout(onDone, 300);
+      return;
+    }
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      if (typeof onDone === "function") onDone();
+    };
     u.lang = "ja-JP";
     u.rate = 0.88;
     u.pitch = 1.35;
     u.volume = 1;
+    u.onend = done;
+    u.onerror = done;
     window.speechSynthesis.speak(u);
-  } catch (e) {}
+    if (typeof onDone === "function") setTimeout(done, fallbackMs);
+  } catch (e) {
+    if (typeof onDone === "function") setTimeout(onDone, 300);
+  }
 }
 
 function speakQuestion() {
@@ -174,18 +188,17 @@ function showFinishScreen() {
   appleBtn.classList.remove("pulse");
   void appleBtn.offsetWidth;
   appleBtn.classList.add("pulse");
-  setTimeout(() => speak("もういっかいやる？ りんご押してね！"), 520);
+  setTimeout(() => speak("もういっかいやる？ りんご押してね！"), 720);
 }
 
 function finishGame() {
   acceptingAnswer = false;
   celebrationTone();
-  speak("できたね。いいねぇ！");
   showBigReaction("できたね！");
-  setTimeout(() => {
+  speak("できたね！", () => {
     reaction.classList.remove("show", "big");
     showFinishScreen();
-  }, 1500);
+  }, 1700);
 }
 
 function answer(side, button) {
@@ -195,13 +208,17 @@ function answer(side, button) {
   setTimeout(() => button.classList.remove("pressed"), 130);
   answeredCount += 1;
   tone(true);
+
+  // 5問目だけは「いいね」を途中で切らず、終了音声にきれいにつなげる。
+  if (answeredCount >= MAX_QUESTIONS) {
+    showReaction(true, "やった！");
+    setTimeout(finishGame, 680);
+    return;
+  }
+
   speak("いいね");
   showReaction(true);
   setTimeout(() => {
-    if (answeredCount >= MAX_QUESTIONS) {
-      finishGame();
-      return;
-    }
     pickNextQuestion();
     loadQuestion();
     setTimeout(speakQuestion, 180);
