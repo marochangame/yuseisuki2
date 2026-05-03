@@ -1,9 +1,9 @@
 {
-  "name": "ユーセーくん",
-  "short_name": "ユーセー",
+  "name": "ユーセーくん②",
+  "short_name": "ユーセーくん②",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff4b7",
+  "background_color": "#fff6b0",
   "theme_color": "#fff4b7",
   "icons": [
     {

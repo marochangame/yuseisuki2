@@ -6,7 +6,7 @@
   <title>ユーセーくん</title>
   <meta name="theme-color" content="#fff4b7" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="ユーセーくん" />
+  <meta name="apple-mobile-web-app-title" content="ユーセーくん②" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
@@ -33,17 +33,23 @@
           <div class="body"></div><div class="face"><div class="eye eye-l"></div><div class="eye eye-r"></div><div class="cheek cheek-l"></div><div class="cheek cheek-r"></div><div class="nose"></div><div class="mouth"></div></div>
         </div>
       </section>
-
       <section class="choices" aria-label="えらぶ">
         <button class="choice" id="leftChoice" type="button" aria-label="ひだり"><span class="item" id="leftItem"></span></button>
         <button class="choice" id="rightChoice" type="button" aria-label="みぎ"><span class="item" id="rightItem"></span></button>
       </section>
-
       <button class="sound-btn" id="soundBtn" type="button" aria-label="もういちど">♪</button>
-
+      <div class="turn-counter" id="turnCounter">1 / 5</div>
       <div class="reaction" id="reaction" aria-hidden="true">
         <div class="burst"></div>
         <div class="reaction-text" id="reactionText">やった！</div>
+      </div>
+    </section>
+
+    <section class="finish-screen" id="finishScreen" aria-hidden="true">
+      <div class="finish-card">
+        <div class="finish-title">できたね！</div>
+        <div class="finish-stars" aria-hidden="true">✨ 🎉 ✨</div>
+        <button id="appleBtn" class="apple-btn" type="button" aria-label="もういっかいやる">🍎</button>
       </div>
     </section>
   </main>
