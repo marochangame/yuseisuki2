@@ -1,1 +1,58 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>ユーセーくん どっちがすき？</title><link rel="stylesheet" href="style.css"></head><body><main class="app"><section class="screen start-screen" id="startScreen"><div class="soft-title">ユーセーくん</div><div class="character" aria-hidden="true"><div class="ear"><span></span></div><div class="head"><i></i><b></b></div><div class="tail"></div><div class="body"></div></div><button class="start-button" id="startButton" type="button">はじめる</button><button class="sound-button" id="soundButton" type="button">♪</button></section><section class="screen game-screen hidden" id="gameScreen"><div class="progress" id="progress">1 / 10</div><div class="question-card"><div class="mini-character" aria-hidden="true"><div></div></div><h1 id="questionText">ユーセーくんは、どっちがすき？</h1></div><div class="choices"><button class="choice" id="choiceA" type="button"></button><button class="choice" id="choiceB" type="button"></button></div><div class="result hidden" id="result"><div class="result-main">やった！</div><div class="result-sub">できたね！</div><div class="sparkles">✨ ✨</div></div></section><section class="screen finish-screen hidden" id="finishScreen"><div class="finish-title">ぜんぶできたね！</div><div class="finish-sub">またあそぼうね</div><button class="start-button" id="againButton" type="button">もういっかい</button></section></main><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ユーセーくん</title>
+  <meta name="theme-color" content="#fff4b7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="ユーセーくん②" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="start-screen" id="startScreen">
+      <div class="start-card">
+        <div class="fox start-fox" aria-hidden="true">
+          <div class="tail"></div><div class="ear ear-l"></div><div class="ear ear-r"></div>
+          <div class="body"></div><div class="face"><div class="eye eye-l"></div><div class="eye eye-r"></div><div class="cheek cheek-l"></div><div class="cheek cheek-r"></div><div class="nose"></div><div class="mouth"></div></div>
+        </div>
+        <button id="startBtn" class="start-btn" type="button">はじめる</button>
+      </div>
+    </section>
+
+    <section class="game-screen" id="gameScreen" aria-hidden="true">
+      <div class="sparkle sp1"></div><div class="sparkle sp2"></div>
+      <section class="hero">
+        <div class="fox hero-fox" id="heroFox" aria-hidden="true">
+          <div class="tail"></div><div class="ear ear-l"></div><div class="ear ear-r"></div>
+          <div class="body"></div><div class="face"><div class="eye eye-l"></div><div class="eye eye-r"></div><div class="cheek cheek-l"></div><div class="cheek cheek-r"></div><div class="nose"></div><div class="mouth"></div></div>
+        </div>
+      </section>
+      <section class="choices" aria-label="えらぶ">
+        <button class="choice" id="leftChoice" type="button" aria-label="ひだり"><span class="item" id="leftItem"></span></button>
+        <button class="choice" id="rightChoice" type="button" aria-label="みぎ"><span class="item" id="rightItem"></span></button>
+      </section>
+      <button class="sound-btn" id="soundBtn" type="button" aria-label="もういちど">♪</button>
+      <div class="turn-counter" id="turnCounter">1 / 5</div>
+      <div class="reaction" id="reaction" aria-hidden="true">
+        <div class="burst"></div>
+        <div class="reaction-text" id="reactionText">やった！</div>
+      </div>
+    </section>
+
+    <section class="finish-screen" id="finishScreen" aria-hidden="true">
+      <div class="finish-card">
+        <div class="finish-title">できたね！</div>
+        <div class="finish-stars" aria-hidden="true">✨ 🎉 ✨</div>
+        <button id="appleBtn" class="apple-btn" type="button" aria-label="もういっかいやる">🍎</button>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
