@@ -148,9 +148,51 @@ function speak(text, onDone, fallbackMs = 1800) {
   }
 }
 
+const speechAliases = {
+  "きょうりゅう": "恐竜",
+  "ぎゅうにゅう": "牛乳",
+  "しょうぼうしゃ": "消防車",
+  "ひこうき": "飛行機",
+  "とうもろこし": "とうもろこし",
+  "かきごおり": "かき氷",
+  "きゅうきゅうしゃ": "救急車",
+  "ワゴンしゃ": "ワゴン車",
+  "きかんしゃ": "機関車",
+  "しんかんせん": "新幹線",
+  "すべりだい": "すべり台",
+  "たこあげ": "凧あげ",
+  "しゃぼんだま": "シャボン玉",
+  "えほん": "絵本",
+  "おひさま": "お日さま",
+  "ゆき": "雪",
+  "さくら": "桜",
+  "はっぱ": "葉っぱ",
+  "うみ": "海",
+  "やま": "山",
+  "すなはま": "砂浜",
+  "あさ": "朝",
+  "よる": "夜",
+  "おふろ": "お風呂",
+  "はみがき": "歯みがき",
+  "とけい": "時計",
+  "かいちゅうでんとう": "懐中電灯",
+  "えんぴつ": "鉛筆",
+  "くつした": "靴下",
+  "てぶくろ": "手袋",
+  "おうかん": "王冠"
+};
+
+function getSpeakName(q, side) {
+  const custom = side === "left" ? q.leftSpeak : q.rightSpeak;
+  const name = custom || (side === "left" ? q.leftName : q.rightName);
+  return speechAliases[name] || name;
+}
+
 function speakQuestion() {
   const q = questions[index];
-  speak(`ユーセーくんは、${q.leftName}と${q.rightName}、どっちがすき？`);
+  const leftSpeak = getSpeakName(q, "left");
+  const rightSpeak = getSpeakName(q, "right");
+  speak(`ユーセーくん、${leftSpeak}と、${rightSpeak}、どっちがすき？`);
 }
 
 function shuffleQuestions() {
